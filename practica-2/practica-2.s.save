@@ -1,0 +1,22 @@
+
+section.data
+
+pi         dq 3.141592653589793
+deg180     dq 180.0
+one        dq 1.0
+three      dq 3.0
+five       dq 5.0
+six        dq 6.0
+factorial3 dq 6.0      ; 3!
+factorial5 dq 120.0    ; 5!
+
+
+section .bss
+  result resq1
+
+section .text
+  global main
+  extern printf
+
+main:
+;

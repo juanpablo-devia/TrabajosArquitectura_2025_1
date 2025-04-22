@@ -1,0 +1,34 @@
+section .data
+
+    mensaje: .asciz "%ld \n"
+
+section .text
+
+    .global main
+    .extern printf
+
+main:
+    subq $8, %rsp    # Alineación de datos
+ 
+    movq $1, %rsi    # Inicializamos el contador en 1
+    movq $10, %rbx   # Valor límite
+
+loop:
+    cmp %rsi, %rbx   # Comparamos si ya imprimimos hasta 10
+    jg fin           # Si %rsi es mayor que 10, terminamos
+
+    movq $mensaje, %rdi  # Cargamos la dirección del mensaje
+    movq %rsi, %rsi      # Cargamos el número actual en %rsi
+    xorq %rax, %rax      # Limpiamos %rax para printf
+    call printf          # Llamamos a printf
+
+    inc %rsi             # Incrementamos el contador
+    jmp loop             # Repetimos el proceso
+
+fin:
+    addq $8, %rsp    # Restauramos la alineación de datos
+
+    # Salida del programa
+    movq $60, %rax   # Llamada a exit
+    xorq %rdi, %rdi  # Código de salida 0
+    syscall
